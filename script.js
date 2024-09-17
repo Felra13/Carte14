@@ -17,10 +17,10 @@ L.imageOverlay(imageUrl, imageBounds).addTo(map);
 map.fitBounds(imageBounds);
 
 var coords = [
-    [503, 60],  // Coordonnée 1
-    [581, 99],  // Coordonnée 3
-    [499, 65], // Coordonnée 2
-    [577,105]  // Coordonnée 4
+    [554, 503],  // Coordonnée 1
+    [515, 581],  // Coordonnée 3
+    [549, 499], // Coordonnée 2
+    [509,577]  // Coordonnée 4
 ];
 
 // Créer un polygone à partir de ces coordonnées
