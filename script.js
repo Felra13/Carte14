@@ -1,7 +1,8 @@
 // Initialise la carte avec un système de coordonnées simple
 var map = L.map('map', {
     crs: L.CRS.Simple, // Utilise un système de coordonnées simple pour les images
-    maxZoom: 5
+    maxZoom: 5,
+    minZoom: 1
 });
 
 // URL de l'image de la carte
@@ -24,19 +25,29 @@ var coordsEdgarQuinet = [
     [515, 581]   // Coordonnée 3
 ];
 
-// Créer un polygone pour la Rue Edgar Quinet, mais le rendre invisible par défaut
+// Créer un polygone pour la Rue Edgar Quinet
 var polygonEdgarQuinet = L.polygon(coordsEdgarQuinet, {
     color: 'red', // Couleur des bordures
     fillColor: '#f03', // Couleur de remplissage
     fillOpacity: 0.5   // Opacité du remplissage
 }).addTo(map);
 
-// Initialement cacher le polygone
-polygonEdgarQuinet.setStyle({ opacity: 0, fillOpacity: 0 });
+// Masquer le polygone au départ
+polygonEdgarQuinet.setStyle({ fillOpacity: 0, color: 'transparent' });
 
-// Déclarer la variable globale `rueDemandee` et `feedbackShown`
+// Créer une icône pour afficher le nom de la rue à l'intérieur du polygone
+var labelIcon = L.divIcon({
+    html: '<div id="streetName" style="font-size: 20px; color: black;">Rue Edgar Quinet</div>',
+    className: 'label-icon',
+    iconSize: [100, 40] // Taille de l'icône (personnalisée pour inclure du texte)
+});
+
+// Ajouter l'icône avec le nom de la rue, mais initialement cachée
+var labelMarker = L.marker([530, 540], { icon: labelIcon }).addTo(map);
+labelMarker.getElement().style.display = 'none'; // Masquer le texte au départ
+
+// Déclarer la variable globale `rueDemandee`
 var rueDemandee = "";
-var feedbackShown = false;
 
 // Ajouter un événement de clic pour le bouton de démarrage
 document.getElementById('startButton').addEventListener('click', function() {
@@ -44,15 +55,11 @@ document.getElementById('startButton').addEventListener('click', function() {
     rueDemandee = "Rue Edgar Quinet";
 
     // Afficher la question lorsque le bouton est cliqué
-    var questionDiv = document.getElementById('question');
-    questionDiv.textContent = "Place la " + rueDemandee;
-    questionDiv.style.display = 'block'; // Rendre la question visible
+    document.getElementById('question').textContent = "Place la " + rueDemandee;
+    document.getElementById('question').style.display = 'block'; // Rendre la question visible
 
     // Cacher le bouton de démarrage
     document.getElementById('startButton').style.display = 'none';
-
-    // Réinitialiser le drapeau de feedbackShown
-    feedbackShown = false;
 });
 
 // Fonction pour afficher un message de feedback
@@ -66,34 +73,32 @@ function showFeedback(message, bgColor) {
     setTimeout(function() {
         feedback.style.display = 'none';
 
-        // Si le message est "Correct", rendre le polygone visible et ajouter du texte
         if (message === "Correct") {
-            polygonEdgarQuinet.setStyle({ opacity: 1, fillOpacity: 0.5 });
-            polygonEdgarQuinet.bindTooltip("Rue Edgar Quinet", {permanent: true, direction: 'center', className: 'leaflet-tooltip'}).openTooltip();
+            // Afficher le polygone et le nom de la rue après avoir répondu correctement
+            polygonEdgarQuinet.setStyle({ fillOpacity: 0.5, color: 'red' });
+            labelMarker.getElement().style.display = 'block'; // Afficher le texte
         }
-    }, 2000); // 2000 millisecondes = 2 secondes
+    }, 2000);
 }
+
+// Ajuster la taille du texte selon le niveau de zoom
+map.on('zoomend', function() {
+    var zoomLevel = map.getZoom();
+    var fontSize = 20 + (zoomLevel - 1) * 2; // Ajuster la taille du texte en fonction du niveau de zoom
+    document.getElementById('streetName').style.fontSize = fontSize + 'px';
+});
 
 // Ajouter un événement de clic au polygone de la Rue Edgar Quinet
 polygonEdgarQuinet.on('click', function() {
     // Vérifier si la rue demandée correspond à la rue du polygone cliqué
     if (rueDemandee === "Rue Edgar Quinet") {
-        if (!feedbackShown) {
-            showFeedback("Correct", 'green');
-            feedbackShown = true; // Mettre à jour le drapeau pour éviter le message d'échec
-        }
+        showFeedback("Correct", 'green');
     } else {
-        if (!feedbackShown) {
-            showFeedback("Essaie encore", 'red');
-            feedbackShown = true; // Mettre à jour le drapeau pour éviter le message d'échec
-        }
+        showFeedback("Essaie encore", 'red');
     }
 });
 
 // Ajouter un événement de clic pour toute la carte (en cas de clic hors du polygone)
 map.on('click', function() {
-    // Afficher le message d'échec seulement si un message de feedback n'a pas encore été montré
-    if (!feedbackShown) {
-        showFeedback("Essaie encore", 'red');
-    }
+    showFeedback("Essaie encore", 'red');
 });
