@@ -1,13 +1,11 @@
-body {
-    font-family: Arial, sans-serif;
+/* style.css */
+html, body {
+    margin: 0; /* Enlève les marges par défaut du navigateur */
+    height: 100%; /* Assure que le corps de la page prend toute la hauteur disponible */
 }
 
-/* style.css */
 #map {
-    width: 100vw;
-    height: 100vh;
-    background-image: url('CarteRouge14.jpg'); 
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    width: 100vw; /* Définit la largeur de la carte à 100% de la largeur de la fenêtre */
+    height: 100vh; /* Définit la hauteur de la carte à 100% de la hauteur de la fenêtre */
 }
+
