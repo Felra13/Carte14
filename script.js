@@ -44,23 +44,33 @@ document.getElementById('startButton').addEventListener('click', function() {
     document.getElementById('question').style.display = 'block'; // Rendre la question visible
 
     // Cacher le bouton de démarrage
-    this.style.display = 'none'; // Utilise 'this' pour se référer au bouton cliqué
+    document.getElementById('startButton').style.display = 'none';
 });
+
+// Fonction pour afficher un message de feedback
+function showFeedback(message, bgColor) {
+    var feedback = document.getElementById('feedback');
+    feedback.textContent = message;
+    feedback.style.backgroundColor = bgColor;
+    feedback.style.display = 'block';
+
+    // Cacher le message après 2 secondes
+    setTimeout(function() {
+        feedback.style.display = 'none';
+    }, 2000);
+}
 
 // Ajouter un événement de clic au polygone de la Rue Edgar Quinet
 polygonEdgarQuinet.on('click', function() {
     // Vérifier si la rue demandée correspond à la rue du polygone cliqué
     if (rueDemandee === "Rue Edgar Quinet") {
-        alert("Bravo, tu as trouvé la Rue Edgar Quinet !");
+        showFeedback("Correct", 'green');
     } else {
-        alert("Essaie encore !");
+        showFeedback("Essaie encore", 'red');
     }
 });
 
 // Ajouter un événement de clic pour toute la carte (en cas de clic hors du polygone)
-map.on('click', function(e) {
-    // Vérifier si le clic a eu lieu en dehors des polygones
-    if (!polygonEdgarQuinet.getBounds().contains(e.latlng)) {
-        alert("Essaie encore !");
-    }
+map.on('click', function() {
+    showFeedback("Essaie encore", 'red');
 });
