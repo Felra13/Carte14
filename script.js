@@ -31,7 +31,7 @@ var polygonEdgarQuinet = L.polygon(coordsEdgarQuinet, {
     fillOpacity: 0.5   // Opacité du remplissage
 }).addTo(map);
 
-// Définir la variable rueDemandee
+// Déclarer la variable globale `rueDemandee`
 var rueDemandee = "";
 
 // Ajouter un événement de clic pour le bouton de démarrage
@@ -42,10 +42,14 @@ document.getElementById('startButton').addEventListener('click', function() {
     // Afficher la question lorsque le bouton est cliqué
     document.getElementById('question').textContent = "Place la " + rueDemandee;
     document.getElementById('question').style.display = 'block'; // Rendre la question visible
+
+    // Cacher le bouton de démarrage
+    document.getElementById('startButton').style.display = 'none';
 });
 
 // Ajouter un événement de clic au polygone de la Rue Edgar Quinet
 polygonEdgarQuinet.on('click', function() {
+    // Vérifier si la rue demandée correspond à la rue du polygone cliqué
     if (rueDemandee === "Rue Edgar Quinet") {
         alert("Bravo, tu as trouvé la Rue Edgar Quinet !");
     } else {
