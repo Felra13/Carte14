@@ -15,3 +15,22 @@ L.imageOverlay(imageUrl, imageBounds).addTo(map);
 
 // Ajuster la vue pour correspondre à l'image
 map.fitBounds(imageBounds);
+
+var coords = [
+    [472, 41],  // Coordonnée 1
+    [582, 100], // Coordonnée 2
+    [468, 46],  // Coordonnée 3
+    [580, 107]  // Coordonnée 4
+];
+
+// Créer un polygone à partir de ces coordonnées
+var polygon = L.polygon(coords, {
+    color: 'red', // Couleur des bordures
+    fillColor: '#f03', // Couleur de remplissage
+    fillOpacity: 0.5   // Opacité du remplissage
+}).addTo(map);
+
+// Ajouter un événement de clic au polygone
+polygon.on('click', function() {
+    alert("Tu as cliqué sur le polygone !");
+});
