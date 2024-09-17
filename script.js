@@ -35,12 +35,6 @@ var polygonEdgarQuinet = L.polygon(coordsEdgarQuinet, {
 // Masquer le polygone au départ
 polygonEdgarQuinet.setStyle({ fillOpacity: 0, color: 'transparent' });
 
-// Créer une icône pour afficher le nom de la rue à l'intérieur du polygone
-var labelIcon = L.divIcon({
-    html: '<div id="streetName" style="font-size: 20px; color: black;">Rue Edgar Quinet</div>',
-    className: 'label-icon',
-    iconSize: [100, 40] // Taille de l'icône (personnalisée pour inclure du texte)
-});
 
 // Ajouter l'icône avec le nom de la rue, mais initialement cachée
 var labelMarker = L.marker([530, 540], { icon: labelIcon }).addTo(map);
