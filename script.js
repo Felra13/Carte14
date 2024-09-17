@@ -89,7 +89,8 @@ polygonEdgarQuinet.on('click', function() {
         if (!feedbackShown) {
             showFeedback("Correct", 'green');
             feedbackShown = true; // Mettre à jour le drapeau pour éviter le message d'échec
-            nextQuestion(); // Passer à la question suivante
+            // Passer à la question suivante
+            nextQuestion();
         }
     } else {
         if (!feedbackShown) {
@@ -132,7 +133,7 @@ function nextQuestion() {
 
         // Rendre visible le polygone Raspail et cacher le polygone Edgar Quinet
         polygonRaspail.setStyle({ opacity: 1, fillOpacity: 0.5 });
-        polygonEdgarQuinet.setStyle({ opacity: 0, fillOpacity: 0 });
+        polygonEdgarQuinet.setStyle({ opacity: 1, fillOpacity: 0.5 });
 
         // Réinitialiser le drapeau de feedbackShown
         feedbackShown = false;
