@@ -25,7 +25,7 @@ var coords = [
 
 // Créer un polygone à partir de ces coordonnées
 var polygon = L.polygon(coords, {
-    color: 'red', // Couleur des bordures
+    color: 'blue', // Couleur des bordures
     fillColor: '#f03', // Couleur de remplissage
     fillOpacity: 0.5   // Opacité du remplissage
 }).addTo(map);
