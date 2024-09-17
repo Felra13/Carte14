@@ -18,8 +18,8 @@ map.fitBounds(imageBounds);
 
 var coords = [
     [60, 503],  // Coordonnée 1
-    [65, 499], // Coordonnée 2
     [99, 580],  // Coordonnée 3
+    [65, 499], // Coordonnée 2
     [105,577]  // Coordonnée 4
 ];
 
