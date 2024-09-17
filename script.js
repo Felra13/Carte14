@@ -16,21 +16,39 @@ L.imageOverlay(imageUrl, imageBounds).addTo(map);
 // Ajuster la vue pour correspondre à l'image
 map.fitBounds(imageBounds);
 
-var coords = [
+var rueDemandee = "Rue Edgar Quinet";
+
+// Afficher la question
+var question = document.createElement('div');
+question.textContent = "Place la " + rueDemandee;
+document.body.appendChild(question);
+
+// Coordonnées du polygone représentant la Rue Edgar Quinet (par exemple)
+var coordsEdgarQuinet = [
     [554, 503],  // Coordonnée 1
-    [549, 499], // Coordonnée 2
-    [509,577],  // Coordonnée 4
-    [515, 581]  // Coordonnée 3
+    [549, 499],  // Coordonnée 2
+    [509, 577],  // Coordonnée 4
+    [515, 581]   // Coordonnée 3
 ];
 
-// Créer un polygone à partir de ces coordonnées
-var polygon = L.polygon(coords, {
+// Créer un polygone pour la Rue Edgar Quinet
+var polygonEdgarQuinet = L.polygon(coordsEdgarQuinet, {
     color: 'red', // Couleur des bordures
     fillColor: '#f03', // Couleur de remplissage
     fillOpacity: 0.5   // Opacité du remplissage
 }).addTo(map);
 
-// Ajouter un événement de clic au polygone
-polygon.on('click', function() {
-    alert("Tu as cliqué sur le polygone !");
+// Ajouter un événement de clic au polygone de la Rue Edgar Quinet
+polygonEdgarQuinet.on('click', function() {
+    // Vérifier si la rue demandée est bien Rue Edgar Quinet
+    if (rueDemandee === "Rue Edgar Quinet") {
+        alert("Bravo, tu as trouvé la Rue Edgar Quinet !");
+    } else {
+        alert("Essaie encore !");
+    }
+});
+
+// Ajouter un événement de clic pour toute la carte (en cas de clic hors du polygone)
+map.on('click', function() {
+    alert("Essaie encore !");
 });
