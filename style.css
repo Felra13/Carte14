@@ -1,7 +1,9 @@
-/* style.css */
-
-#map {
-    width: 100vw; /* Définit la largeur de la carte à 100% de la largeur de la fenêtre */
-    height: 100vh; /* Définit la hauteur de la carte à 100% de la hauteur de la fenêtre */
+html, body {
+    margin: 0;
+    height: 100%;
 }
 
+#map {
+    width: 100vw;
+    height: 100vh;
+}
