@@ -1,8 +1,4 @@
 /* style.css */
-html, body {
-    margin: 0; /* Enlève les marges par défaut du navigateur */
-    height: 100%; /* Assure que le corps de la page prend toute la hauteur disponible */
-}
 
 #map {
     width: 100vw; /* Définit la largeur de la carte à 100% de la largeur de la fenêtre */
