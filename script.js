@@ -1,5 +1,11 @@
-var map = L.map('map').setView([48.8323, 2.3195], 15);
+var map = L.map('map', {
+    crs: L.CRS.Simple,
+    maxZoom: 5
+});
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-}).addTo(map);
+// URL de l'image
+var imageUrl = 'CarteRouge14'; // Remplace par le nom exact de ton fichier
+var imageBounds = [[0, 0], [1000, 1000]]; // Ajuste ces valeurs en fonction des dimensions de l'image
+
+L.imageOverlay(imageUrl, imageBounds).addTo(map);
+map.fitBounds(imageBounds);
