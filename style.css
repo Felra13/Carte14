@@ -24,13 +24,14 @@ html, body {
 
 #question {
     position: absolute;
-    top: 10px; /* Ajuste la position verticale pour mettre la question juste au-dessus de l'image */
-    left: 50%;
-    transform: translateX(-50%); /* Centre la question horizontalement */
+    top: 50%; /* Place le haut du div à 50% de la hauteur de la fenêtre */
+    left: 50%; /* Place le bord gauche du div à 50% de la largeur de la fenêtre */
+    transform: translate(-50%, -50%); /* Centre le div horizontalement et verticalement */
     padding: 10px;
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     z-index: 1000; /* Assure-toi que la question est au-dessus de la carte */
+    display: none; /* Initialement caché */
 }
 
 #feedback {
