@@ -47,3 +47,11 @@ html, body {
     z-index: 1000; /* Assure-toi que le message est au-dessus de la carte */
     display: none; /* Initialement caché */
 }
+
+.leaflet-tooltip {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 14px;
+}
