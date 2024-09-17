@@ -12,6 +12,3 @@ var imageBounds = [[0, 0], [614, 1024]];
 
 // Ajouter l'image en tant que calque
 L.imageOverlay(imageUrl, imageBounds).addTo(map);
-
-// Ajuster la vue pour correspondre à l'image
-map.fitBounds(imageBounds);
