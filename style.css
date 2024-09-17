@@ -5,16 +5,34 @@ html, body {
 
 #map {
     width: 100vw;
-    height: 90vh; /* Réduire un peu la hauteur pour laisser de la place à la question */
+    height: 90vh; /* Réduit la hauteur pour laisser de la place à la question */
+    position: relative;
+    background: lightgray; /* Couleur de fond de la carte pour la visibilité */
 }
 
 #question {
-    height: 10vh; /* Espace réservé pour la question */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: absolute;
+    top: 50px; /* Ajuste la distance du haut si nécessaire */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #ccc;
     font-size: 20px;
     font-weight: bold;
-    background-color: #f0f0f0;
-    border-bottom: 1px solid #ccc;
+    z-index: 1000; /* Assure que la question est au-dessus de la carte */
+}
+
+#startButton {
+    position: absolute;
+    top: 10px; /* Ajuste la distance du haut si nécessaire */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1000; /* Assure que le bouton est au-dessus de la carte */
 }
