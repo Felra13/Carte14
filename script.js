@@ -24,12 +24,15 @@ var coordsEdgarQuinet = [
     [515, 581]   // Coordonnée 3
 ];
 
-// Créer un polygone pour la Rue Edgar Quinet
+// Créer un polygone pour la Rue Edgar Quinet, mais le rendre invisible par défaut
 var polygonEdgarQuinet = L.polygon(coordsEdgarQuinet, {
     color: 'red', // Couleur des bordures
     fillColor: '#f03', // Couleur de remplissage
     fillOpacity: 0.5   // Opacité du remplissage
 }).addTo(map);
+
+// Initialement cacher le polygone
+polygonEdgarQuinet.setStyle({ opacity: 0, fillOpacity: 0 });
 
 // Déclarer la variable globale `rueDemandee` et `feedbackShown`
 var rueDemandee = "";
@@ -62,6 +65,11 @@ function showFeedback(message, bgColor) {
     // Cacher le message après 2 secondes
     setTimeout(function() {
         feedback.style.display = 'none';
+
+        // Si le message est "Correct", rendre le polygone visible
+        if (message === "Correct") {
+            polygonEdgarQuinet.setStyle({ opacity: 1, fillOpacity: 0.5 });
+        }
     }, 2000); // 2000 millisecondes = 2 secondes
 }
 
