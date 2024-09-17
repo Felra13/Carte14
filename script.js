@@ -9,9 +9,3 @@ var imageUrl = 'CarteRouge14.jpg'; // Assure-toi que le nom et l'extension sont 
 
 // Limites de l'image en pixels (614x1024)
 var imageBounds = [[0, 0], [614, 1024]];
-
-
-
-
-// Ajuster la vue pour correspondre à l'image
-map.fitBounds(imageBounds);
