@@ -24,8 +24,9 @@ html, body {
 
 #question {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: calc(50% - 400px); /* Positionne la question 400px au-dessus du centre */
+    left: 50%;
+    transform: translateX(-50%); /* Centre la question horizontalement */
     padding: 10px;
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
