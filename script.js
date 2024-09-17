@@ -66,9 +66,10 @@ function showFeedback(message, bgColor) {
     setTimeout(function() {
         feedback.style.display = 'none';
 
-        // Si le message est "Correct", rendre le polygone visible
+        // Si le message est "Correct", rendre le polygone visible et ajouter du texte
         if (message === "Correct") {
             polygonEdgarQuinet.setStyle({ opacity: 1, fillOpacity: 0.5 });
+            polygonEdgarQuinet.bindTooltip("Rue Edgar Quinet", {permanent: true, direction: 'center', className: 'leaflet-tooltip'}).openTooltip();
         }
     }, 2000); // 2000 millisecondes = 2 secondes
 }
