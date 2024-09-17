@@ -18,9 +18,9 @@ map.fitBounds(imageBounds);
 
 var coords = [
     [554, 503],  // Coordonnée 1
-    [515, 581],  // Coordonnée 3
     [549, 499], // Coordonnée 2
-    [509,577]  // Coordonnée 4
+    [509,577],  // Coordonnée 4
+    [515, 581]  // Coordonnée 3
 ];
 
 // Créer un polygone à partir de ces coordonnées
