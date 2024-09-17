@@ -44,7 +44,7 @@ document.getElementById('startButton').addEventListener('click', function() {
     document.getElementById('question').style.display = 'block'; // Rendre la question visible
 
     // Cacher le bouton de démarrage
-    document.getElementById('startButton').style.display = 'none';
+    this.style.display = 'none'; // Utilise 'this' pour se référer au bouton cliqué
 });
 
 // Ajouter un événement de clic au polygone de la Rue Edgar Quinet
@@ -58,6 +58,9 @@ polygonEdgarQuinet.on('click', function() {
 });
 
 // Ajouter un événement de clic pour toute la carte (en cas de clic hors du polygone)
-map.on('click', function() {
-    alert("Essaie encore !");
+map.on('click', function(e) {
+    // Vérifier si le clic a eu lieu en dehors des polygones
+    if (!polygonEdgarQuinet.getBounds().contains(e.latlng)) {
+        alert("Essaie encore !");
+    }
 });
