@@ -24,7 +24,7 @@ html, body {
 
 #question {
     position: absolute;
-    top: calc(50% - 300px); /* Ajuste cette valeur pour placer le bouton juste au-dessus de l'image */
+    top: calc(50% - 350px); /* Ajuste cette valeur pour placer le bouton juste au-dessus de l'image */
     left: 50%;
     transform: translate(-50%, 0); /* Centre horizontalement */
     padding: 10px;
