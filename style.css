@@ -17,6 +17,7 @@ html, body {
     color: white;
     border: none;
     cursor: pointer;
+    z-index: 1000; /* Assure-toi que le bouton est au-dessus de la carte */
 }
 
 #question {
@@ -26,5 +27,5 @@ html, body {
     padding: 10px;
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
+    z-index: 1000; /* Assure-toi que la question est au-dessus de la carte */
 }
-
