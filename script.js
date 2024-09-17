@@ -34,8 +34,8 @@ var polygonEdgarQuinet = L.polygon(coordsEdgarQuinet, {
 // Coordonnées du Boulevard Raspail (avec inversion des x/y et transformation)
 var coordsRaspail = [
    [567, 568],
-     [409, 613],
      [416, 605],
+    [409, 613],
     [565, 575]
       
 ];
