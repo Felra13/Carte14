@@ -80,26 +80,16 @@ function showFeedback(message, bgColor) {
     // Cacher le message après 2 secondes
     setTimeout(function() {
         feedback.style.display = 'none';
-
-        // Si le message est "Correct", rendre le polygone visible et passer à la prochaine question
-        if (message === "Correct") {
-            if (rueDemandee === "Rue Edgar Quinet") {
-                polygonEdgarQuinet.setStyle({ opacity: 1, fillOpacity: 0.5 });
-            } else if (rueDemandee === "Boulevard Raspail") {
-                polygonRaspail.setStyle({ opacity: 1, fillOpacity: 0.5 });
-            }
-            nextQuestion(); // Passer à la question suivante
-        }
     }, 2000); // 2000 millisecondes = 2 secondes
 }
 
 // Ajouter un événement de clic au polygone de la Rue Edgar Quinet
 polygonEdgarQuinet.on('click', function() {
-    // Vérifier si la rue demandée correspond à la rue du polygone cliqué
     if (rueDemandee === "Rue Edgar Quinet") {
         if (!feedbackShown) {
             showFeedback("Correct", 'green');
             feedbackShown = true; // Mettre à jour le drapeau pour éviter le message d'échec
+            nextQuestion(); // Passer à la question suivante
         }
     } else {
         if (!feedbackShown) {
@@ -111,7 +101,6 @@ polygonEdgarQuinet.on('click', function() {
 
 // Ajouter un événement de clic au polygone du Boulevard Raspail
 polygonRaspail.on('click', function() {
-    // Vérifier si la rue demandée correspond à la rue du polygone cliqué
     if (rueDemandee === "Boulevard Raspail") {
         if (!feedbackShown) {
             showFeedback("Correct", 'green');
@@ -127,19 +116,23 @@ polygonRaspail.on('click', function() {
 
 // Ajouter un événement de clic pour toute la carte (en cas de clic hors des polygones)
 map.on('click', function() {
-    // Afficher le message d'échec seulement si un message de feedback n'a pas encore été montré
-    if (!feedbackShown) {
+    if (!feedbackShown && rueDemandee !== "") {
         showFeedback("Essaie encore", 'red');
     }
 });
 
 // Fonction pour passer à la prochaine question
 function nextQuestion() {
+    // Passer à la question du Boulevard Raspail
     if (rueDemandee === "Rue Edgar Quinet") {
         rueDemandee = "Boulevard Raspail";
         var questionDiv = document.getElementById('question');
         questionDiv.textContent = "Place le " + rueDemandee;
         questionDiv.style.display = 'block'; // Afficher la nouvelle question
+
+        // Rendre visible le polygone Raspail et cacher le polygone Edgar Quinet
+        polygonRaspail.setStyle({ opacity: 1, fillOpacity: 0.5 });
+        polygonEdgarQuinet.setStyle({ opacity: 0, fillOpacity: 0 });
 
         // Réinitialiser le drapeau de feedbackShown
         feedbackShown = false;
