@@ -16,7 +16,7 @@ L.imageOverlay(imageUrl, imageBounds).addTo(map);
 // Ajuster la vue pour correspondre à l'image
 map.fitBounds(imageBounds);
 
-// Coordonnées du polygone représentant la Rue Edgar Quinet (par exemple)
+// Coordonnées du polygone représentant la Rue Edgar Quinet (exemple)
 var coordsEdgarQuinet = [
     [554, 503],  // Coordonnée 1
     [549, 499],  // Coordonnée 2
@@ -31,9 +31,21 @@ var polygonEdgarQuinet = L.polygon(coordsEdgarQuinet, {
     fillOpacity: 0.5   // Opacité du remplissage
 }).addTo(map);
 
+// Définir la variable rueDemandee
+var rueDemandee = "";
+
+// Ajouter un événement de clic pour le bouton de démarrage
+document.getElementById('startButton').addEventListener('click', function() {
+    // Définir la rue demandée
+    rueDemandee = "Rue Edgar Quinet";
+
+    // Afficher la question lorsque le bouton est cliqué
+    document.getElementById('question').textContent = "Place la " + rueDemandee;
+    document.getElementById('question').style.display = 'block'; // Rendre la question visible
+});
+
 // Ajouter un événement de clic au polygone de la Rue Edgar Quinet
 polygonEdgarQuinet.on('click', function() {
-    // Vérifier si la rue demandée est bien Rue Edgar Quinet
     if (rueDemandee === "Rue Edgar Quinet") {
         alert("Bravo, tu as trouvé la Rue Edgar Quinet !");
     } else {
@@ -44,11 +56,4 @@ polygonEdgarQuinet.on('click', function() {
 // Ajouter un événement de clic pour toute la carte (en cas de clic hors du polygone)
 map.on('click', function() {
     alert("Essaie encore !");
-});
-
-// Ajouter un événement de clic pour le bouton de démarrage
-document.getElementById('startButton').addEventListener('click', function() {
-    // Afficher la question lorsque le bouton est cliqué
-    document.getElementById('question').textContent = "Place la " + rueDemandee;
-    document.getElementById('question').style.display = 'block'; // Rendre la question visible
 });
