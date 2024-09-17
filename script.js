@@ -31,8 +31,9 @@ var polygonEdgarQuinet = L.polygon(coordsEdgarQuinet, {
     fillOpacity: 0.5   // Opacité du remplissage
 }).addTo(map);
 
-// Déclarer la variable globale `rueDemandee`
+// Déclarer la variable globale `rueDemandee` et `feedbackShown`
 var rueDemandee = "";
+var feedbackShown = false;
 
 // Ajouter un événement de clic pour le bouton de démarrage
 document.getElementById('startButton').addEventListener('click', function() {
@@ -46,6 +47,9 @@ document.getElementById('startButton').addEventListener('click', function() {
 
     // Cacher le bouton de démarrage
     document.getElementById('startButton').style.display = 'none';
+
+    // Réinitialiser le drapeau de feedbackShown
+    feedbackShown = false;
 });
 
 // Fonction pour afficher un message de feedback
@@ -65,13 +69,22 @@ function showFeedback(message, bgColor) {
 polygonEdgarQuinet.on('click', function() {
     // Vérifier si la rue demandée correspond à la rue du polygone cliqué
     if (rueDemandee === "Rue Edgar Quinet") {
-        showFeedback("Correct", 'green');
+        if (!feedbackShown) {
+            showFeedback("Correct", 'green');
+            feedbackShown = true; // Mettre à jour le drapeau pour éviter le message d'échec
+        }
     } else {
-        showFeedback("Essaie encore", 'red');
+        if (!feedbackShown) {
+            showFeedback("Essaie encore", 'red');
+            feedbackShown = true; // Mettre à jour le drapeau pour éviter le message d'échec
+        }
     }
 });
 
 // Ajouter un événement de clic pour toute la carte (en cas de clic hors du polygone)
 map.on('click', function() {
-    showFeedback("Essaie encore", 'red');
+    // Afficher le message d'échec seulement si un message de feedback n'a pas encore été montré
+    if (!feedbackShown) {
+        showFeedback("Essaie encore", 'red');
+    }
 });
