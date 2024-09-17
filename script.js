@@ -31,7 +31,7 @@ var polygonEdgarQuinet = L.polygon(coordsEdgarQuinet, {
     fillOpacity: 0.5   // Opacité du remplissage
 }).addTo(map);
 
-// Déclarer la variable globale rueDemandee
+// Déclarer la variable globale `rueDemandee`
 var rueDemandee = "";
 
 // Ajouter un événement de clic pour le bouton de démarrage
@@ -40,8 +40,9 @@ document.getElementById('startButton').addEventListener('click', function() {
     rueDemandee = "Rue Edgar Quinet";
 
     // Afficher la question lorsque le bouton est cliqué
-    document.getElementById('question').textContent = "Place la " + rueDemandee;
-    document.getElementById('question').style.display = 'block'; // Rendre la question visible
+    var questionDiv = document.getElementById('question');
+    questionDiv.textContent = "Place la " + rueDemandee;
+    questionDiv.style.display = 'block'; // Rendre la question visible
 
     // Cacher le bouton de démarrage
     document.getElementById('startButton').style.display = 'none';
@@ -57,7 +58,7 @@ function showFeedback(message, bgColor) {
     // Cacher le message après 2 secondes
     setTimeout(function() {
         feedback.style.display = 'none';
-    }, 2000);
+    }, 2000); // 2000 millisecondes = 2 secondes
 }
 
 // Ajouter un événement de clic au polygone de la Rue Edgar Quinet
