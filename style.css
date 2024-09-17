@@ -24,7 +24,7 @@ html, body {
 
 #question {
     position: absolute;
-    top: calc(50% - 400px); /* Positionne la question 400px au-dessus du centre */
+    top: 10px; /* Ajuste la position verticale pour mettre la question juste au-dessus de l'image */
     left: 50%;
     transform: translateX(-50%); /* Centre la question horizontalement */
     padding: 10px;
