@@ -33,11 +33,10 @@ var polygonEdgarQuinet = L.polygon(coordsEdgarQuinet, {
 
 // Coordonnées du Boulevard Raspail (avec inversion des x/y et transformation)
 var coordsRaspail = [
-   [567, 568],
-     [416, 605],
+    [567, 568],
+    [416, 605],
     [409, 613],
     [565, 575]
-      
 ];
 
 // Créer un polygone pour le Boulevard Raspail
@@ -45,7 +44,10 @@ var polygonRaspail = L.polygon(coordsRaspail, {
     color: 'blue', // Couleur des bordures
     fillColor: 'blue', // Couleur de remplissage
     fillOpacity: 0.5   // Opacité du remplissage
-}).addTo(map); // Le polygone sera visible dès l'ajout
+}).addTo(map);
+
+// Initialement cacher le polygone Raspail
+polygonRaspail.setStyle({ opacity: 0, fillOpacity: 0 });
 
 // Déclarer la variable globale `rueDemandee` et `feedbackShown`
 var rueDemandee = "";
@@ -81,7 +83,11 @@ function showFeedback(message, bgColor) {
 
         // Si le message est "Correct", rendre le polygone visible et passer à la prochaine question
         if (message === "Correct") {
-            polygonEdgarQuinet.setStyle({ opacity: 1, fillOpacity: 0.5 });
+            if (rueDemandee === "Rue Edgar Quinet") {
+                polygonEdgarQuinet.setStyle({ opacity: 1, fillOpacity: 0.5 });
+            } else if (rueDemandee === "Boulevard Raspail") {
+                polygonRaspail.setStyle({ opacity: 1, fillOpacity: 0.5 });
+            }
             nextQuestion(); // Passer à la question suivante
         }
     }, 2000); // 2000 millisecondes = 2 secondes
@@ -103,7 +109,23 @@ polygonEdgarQuinet.on('click', function() {
     }
 });
 
-// Ajouter un événement de clic pour toute la carte (en cas de clic hors du polygone)
+// Ajouter un événement de clic au polygone du Boulevard Raspail
+polygonRaspail.on('click', function() {
+    // Vérifier si la rue demandée correspond à la rue du polygone cliqué
+    if (rueDemandee === "Boulevard Raspail") {
+        if (!feedbackShown) {
+            showFeedback("Correct", 'green');
+            feedbackShown = true; // Mettre à jour le drapeau pour éviter le message d'échec
+        }
+    } else {
+        if (!feedbackShown) {
+            showFeedback("Essaie encore", 'red');
+            feedbackShown = true; // Mettre à jour le drapeau pour éviter le message d'échec
+        }
+    }
+});
+
+// Ajouter un événement de clic pour toute la carte (en cas de clic hors des polygones)
 map.on('click', function() {
     // Afficher le message d'échec seulement si un message de feedback n'a pas encore été montré
     if (!feedbackShown) {
@@ -113,8 +135,13 @@ map.on('click', function() {
 
 // Fonction pour passer à la prochaine question
 function nextQuestion() {
-    rueDemandee = "Boulevard Raspail";
-    var questionDiv = document.getElementById('question');
-    questionDiv.textContent = "Place le " + rueDemandee;
-    questionDiv.style.display = 'block'; // Afficher la nouvelle question
+    if (rueDemandee === "Rue Edgar Quinet") {
+        rueDemandee = "Boulevard Raspail";
+        var questionDiv = document.getElementById('question');
+        questionDiv.textContent = "Place le " + rueDemandee;
+        questionDiv.style.display = 'block'; // Afficher la nouvelle question
+
+        // Réinitialiser le drapeau de feedbackShown
+        feedbackShown = false;
+    }
 }
