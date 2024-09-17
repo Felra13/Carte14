@@ -47,4 +47,3 @@ html, body {
     z-index: 1000; /* Assure-toi que le message est au-dessus de la carte */
     display: none; /* Initialement caché */
 }
-
