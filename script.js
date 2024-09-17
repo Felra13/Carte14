@@ -35,9 +35,9 @@ var polygonEdgarQuinet = L.polygon(coordsEdgarQuinet, {
 var coordsRaspail = [
    [567, 568],
      [409, 613],
-    [565, 575],
-    [416, 605]
-   
+     [416, 605],
+    [565, 575]
+      
 ];
 
 // Créer un polygone pour le Boulevard Raspail
