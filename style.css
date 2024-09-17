@@ -1,6 +1,7 @@
 html, body {
     margin: 0;
     height: 100%;
+    overflow: hidden; /* Empêche le défilement si nécessaire */
 }
 
 #map {
@@ -10,8 +11,9 @@ html, body {
 
 #startButton {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centre le bouton */
     padding: 10px 20px;
     background-color: green;
     color: white;
@@ -22,7 +24,7 @@ html, body {
 
 #question {
     position: absolute;
-    top: 50px;
+    top: 10px;
     left: 10px;
     padding: 10px;
     background-color: rgba(0, 0, 0, 0.5);
