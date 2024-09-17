@@ -24,19 +24,15 @@ var coordsEdgarQuinet = [
     [515, 581]   // Coordonnée 3
 ];
 
-// Créer un polygone pour la Rue Edgar Quinet, mais le rendre invisible par défaut
+// Créer un polygone pour la Rue Edgar Quinet
 var polygonEdgarQuinet = L.polygon(coordsEdgarQuinet, {
     color: 'red', // Couleur des bordures
     fillColor: '#f03', // Couleur de remplissage
     fillOpacity: 0.5   // Opacité du remplissage
 }).addTo(map);
 
-// Initialement cacher le polygone
-polygonEdgarQuinet.setStyle({ opacity: 0, fillOpacity: 0 });
-
-// Déclarer la variable globale `rueDemandee` et `feedbackShown`
+// Déclarer la variable globale rueDemandee
 var rueDemandee = "";
-var feedbackShown = false;
 
 // Ajouter un événement de clic pour le bouton de démarrage
 document.getElementById('startButton').addEventListener('click', function() {
@@ -44,15 +40,11 @@ document.getElementById('startButton').addEventListener('click', function() {
     rueDemandee = "Rue Edgar Quinet";
 
     // Afficher la question lorsque le bouton est cliqué
-    var questionDiv = document.getElementById('question');
-    questionDiv.textContent = "Place la " + rueDemandee;
-    questionDiv.style.display = 'block'; // Rendre la question visible
+    document.getElementById('question').textContent = "Place la " + rueDemandee;
+    document.getElementById('question').style.display = 'block'; // Rendre la question visible
 
     // Cacher le bouton de démarrage
     document.getElementById('startButton').style.display = 'none';
-
-    // Réinitialiser le drapeau de feedbackShown
-    feedbackShown = false;
 });
 
 // Fonction pour afficher un message de feedback
@@ -65,34 +57,20 @@ function showFeedback(message, bgColor) {
     // Cacher le message après 2 secondes
     setTimeout(function() {
         feedback.style.display = 'none';
-
-        // Si le message est "Correct", rendre le polygone visible
-        if (message === "Correct") {
-            polygonEdgarQuinet.setStyle({ opacity: 1, fillOpacity: 0.5 });
-        }
-    }, 2000); // 2000 millisecondes = 2 secondes
+    }, 2000);
 }
 
 // Ajouter un événement de clic au polygone de la Rue Edgar Quinet
 polygonEdgarQuinet.on('click', function() {
     // Vérifier si la rue demandée correspond à la rue du polygone cliqué
     if (rueDemandee === "Rue Edgar Quinet") {
-        if (!feedbackShown) {
-            showFeedback("Correct", 'green');
-            feedbackShown = true; // Mettre à jour le drapeau pour éviter le message d'échec
-        }
+        showFeedback("Correct", 'green');
     } else {
-        if (!feedbackShown) {
-            showFeedback("Essaie encore", 'red');
-            feedbackShown = true; // Mettre à jour le drapeau pour éviter le message d'échec
-        }
+        showFeedback("Essaie encore", 'red');
     }
 });
 
 // Ajouter un événement de clic pour toute la carte (en cas de clic hors du polygone)
 map.on('click', function() {
-    // Afficher le message d'échec seulement si un message de feedback n'a pas encore été montré
-    if (!feedbackShown) {
-        showFeedback("Essaie encore", 'red');
-    }
+    showFeedback("Essaie encore", 'red');
 });
