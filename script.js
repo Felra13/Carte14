@@ -52,7 +52,7 @@ var polygonRaspail = L.polygon(coordsRaspail, {
 // Initialement cacher le polygone Raspail
 polygonRaspail.setStyle({ opacity: 0, fillOpacity: 0 });
 
-// Déclarer les variables globales
+// Déclarer la variable globale `rueDemandee` et `feedbackShown`
 var rueDemandee = "";
 var feedbackShown = false;
 var raspailTrouve = false; // Indicateur pour savoir si Boulevard Raspail est trouvé
@@ -72,6 +72,9 @@ document.getElementById('startButton').addEventListener('click', function() {
 
     // Réinitialiser le drapeau de feedbackShown
     feedbackShown = false;
+
+    // NE PAS rendre visible le polygone Edgar Quinet tout de suite
+    // Il ne deviendra visible qu'une fois trouvé
 });
 
 // Fonction pour afficher un message de feedback
@@ -92,4 +95,61 @@ polygonEdgarQuinet.on('click', function() {
     if (rueDemandee === "Rue Edgar Quinet") {
         if (!feedbackShown) {
             showFeedback("Correct", 'green');
-            feedbackShown = true; // Mettre à jour le d
+            feedbackShown = true; // Mettre à jour le drapeau pour éviter le message d'échec
+            // Rendre visible le polygone Edgar Quinet une fois trouvé
+            polygonEdgarQuinet.setStyle({ opacity: 1, fillOpacity: 0.5 });
+            
+            // Ajouter un délai avant de passer à la question suivante
+            setTimeout(function() {
+                nextQuestion(); // Passer à la question suivante après 2 secondes
+            }, 2000);
+        }
+    } else {
+        if (!feedbackShown) {
+            showFeedback("Essaie encore", 'red');
+            feedbackShown = true; // Mettre à jour le drapeau pour éviter le message d'échec
+        }
+    }
+});
+
+// Ajouter un événement de clic au polygone du Boulevard Raspail
+polygonRaspail.on('click', function() {
+    if (rueDemandee === "Boulevard Raspail" && !raspailTrouve) {
+        if (!feedbackShown) {
+            showFeedback("Correct", 'green');
+            feedbackShown = true; // Mettre à jour le drapeau pour éviter le message d'échec
+            raspailTrouve = true; // Le Boulevard Raspail a été trouvé
+            // Rendre visible le polygone Raspail une fois trouvé
+            polygonRaspail.setStyle({ opacity: 1, fillOpacity: 0.5 });
+        }
+    } else {
+        if (!feedbackShown) {
+            showFeedback("Essaie encore", 'red');
+            feedbackShown = true; // Mettre à jour le drapeau pour éviter le message d'échec
+        }
+    }
+});
+
+// Ajouter un événement de clic pour toute la carte (en cas de clic hors des polygones)
+map.on('click', function() {
+    if (!feedbackShown && rueDemandee !== "") {
+        showFeedback("Essaie encore", 'red');
+    }
+});
+
+// Fonction pour passer à la prochaine question
+function nextQuestion() {
+    // Passer à la question du Boulevard Raspail
+    if (rueDemandee === "Rue Edgar Quinet") {
+        rueDemandee = "Boulevard Raspail";
+        var questionDiv = document.getElementById('question');
+        questionDiv.textContent = "Place le " + rueDemandee;
+        questionDiv.style.display = 'block'; // Afficher la nouvelle question
+
+        // Laisser le polygone Edgar Quinet visible mais ne pas afficher Raspail
+        polygonEdgarQuinet.setStyle({ opacity: 1, fillOpacity: 0.5 });
+
+        // Réinitialiser le drapeau de feedbackShown
+        feedbackShown = false;
+    }
+}
