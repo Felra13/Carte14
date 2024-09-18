@@ -73,8 +73,8 @@ document.getElementById('startButton').addEventListener('click', function() {
     // Réinitialiser le drapeau de feedbackShown
     feedbackShown = false;
 
-    // Rendre visible le polygone Edgar Quinet pour le rendre cliquable
-    polygonEdgarQuinet.setStyle({ opacity: 1, fillOpacity: 0.5 });
+    // NE PAS rendre visible le polygone Edgar Quinet tout de suite
+    // Il ne deviendra visible qu'une fois trouvé
 });
 
 // Fonction pour afficher un message de feedback
