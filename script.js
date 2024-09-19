@@ -67,7 +67,7 @@ var polygonArago = L.polygon(coordsArago, {
 }).addTo(map);
 
 // Initialement cacher le polygone Arago
-//polygonArago.setStyle({ opacity: 0, fillOpacity: 0 });
+polygonArago.setStyle({ opacity: 0, fillOpacity: 0 });
 
 
 
