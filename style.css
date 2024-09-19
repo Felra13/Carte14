@@ -79,8 +79,8 @@ html, body {
 
 #passButton {
     position: absolute;
-    top: 70%;
-    right: 10px; /* Ajuste cette valeur pour placer le bouton à droite de la carte */
+    bottom: 10px; /* Ajuste cette valeur pour placer le bouton à 10 pixels du bas de l'image */
+    right: 10px;  /* Ajuste cette valeur pour placer le bouton à 10 pixels du bord droit de l'image */
     padding: 10px 20px;
     background-color: red;
     color: white;
