@@ -28,8 +28,8 @@ var coordsArago = [
 ];
 
 // Créer des polygones pour chaque rue
-var polygonEdgarQuinet = L.polygon(coordsEdgarQuinet, { color: 'red', fillColor: '#f03', fillOpacity: 0.5 }).addTo(map);
-var polygonRaspail = L.polygon(coordsRaspail, { color: 'blue', fillColor: 'blue', fillOpacity: 0.5 }).addTo(map);
+var polygonEdgarQuinet = L.polygon(coordsEdgarQuinet, { color: 'green', fillColor: 'green', fillOpacity: 0.5 }).addTo(map);
+var polygonRaspail = L.polygon(coordsRaspail, { color: 'green', fillColor: 'green', fillOpacity: 0.5 }).addTo(map);
 var polygonArago = L.polygon(coordsArago, { color: 'green', fillColor: 'green', fillOpacity: 0.5 }).addTo(map);
 
 // Initialement cacher les polygones
