@@ -141,6 +141,11 @@ polygonRaspail.on('click', function() {
             raspailTrouve = true; // Le Boulevard Raspail a été trouvé
             // Rendre visible le polygone Raspail une fois trouvé
             polygonRaspail.setStyle({ opacity: 1, fillOpacity: 0.5 });
+
+             setTimeout(function() {
+                nextQuestion();
+            }, 2000);
+        }
         }
     } else {
         if (!feedbackShown) {
