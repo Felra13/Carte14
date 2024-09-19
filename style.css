@@ -1,19 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carte du 14e Arrondissement</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <button id="startButton">Commencer le jeu</button>
-    <div id="question" style="display: none;"></div>
-    <div id="map"></div>
-    <div id="feedback" style="display: none;"></div>
-    <button id="restartButton">Restart</button>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="script.js"></script>
-</body>
-</html>
+/* Styles existants */
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden; /* Empêche le défilement si nécessaire */
+}
+
+#map {
+    width: 100vw;
+    height: 100vh;
+}
+
+#startButton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    background-color: green;
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 1000; /* Assure-toi que le bouton est au-dessus de la carte */
+}
+
+#question {
+    position: absolute;
+    top: calc(50% - 350px); /* Ajuste cette valeur pour placer le bouton juste au-dessus de l'image */
+    left: 50%;
+    transform: translate(-50%, 0); /* Centre horizontalement */
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    z-index: 1000; /* Assure-toi que la question est au-dessus de la carte */
+    display: none; /* Initialement caché */
+}
+
+#feedback {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centre le message horizontalement et verticalement */
+    padding: 20px;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 5px;
+    z-index: 1000; /* Assure-toi que le message est au-dessus de la carte */
+    display: none; /* Initialement caché */
+}
+
+.leaflet-tooltip {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 14px;
+}
+
+/* Styles pour le bouton Restart */
+#restartButton {
+    display: none; /* Cacher le bouton par défaut */
+    position: absolute; /* Positionner le bouton en haut à droite */
+    right: 20px; /* Décalage de 20 pixels du bord droit */
+    top: 20px; /* Décalage de 20 pixels du bord supérieur */
+    background-color: orange; /* Fond orange */
+    color: white; /* Texte en blanc */
+    border: none; /* Pas de bordure */
+    padding: 10px 20px; /* Espacement intérieur du bouton */
+    border-radius: 5px; /* Coins arrondis */
+    font-size: 16px; /* Taille du texte */
+    cursor: pointer; /* Changer le curseur pour indiquer que c'est cliquable */
+    z-index: 1000; /* Assure-toi que le bouton est au-dessus de la carte */
+}
+
+#restartButton:hover {
+    background-color: darkorange; /* Couleur de fond au survol */
+}
