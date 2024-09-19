@@ -142,10 +142,9 @@ polygonRaspail.on('click', function() {
             // Rendre visible le polygone Raspail une fois trouvé
             polygonRaspail.setStyle({ opacity: 1, fillOpacity: 0.5 });
 
-             setTimeout(function() {
+            setTimeout(function() {
                 nextQuestion();
             }, 2000);
-        }
         }
     } else {
         if (!feedbackShown) {
@@ -154,6 +153,7 @@ polygonRaspail.on('click', function() {
         }
     }
 });
+
 
 // Ajouter un événement de clic au polygone du Boulevard Arago
 polygonArago.on('click', function() {
