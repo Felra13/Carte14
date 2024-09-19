@@ -76,3 +76,16 @@ html, body {
 #restartButton:hover {
     background-color: darkorange; /* Couleur de fond au survol */
 }
+
+#passButton {
+    position: absolute;
+    top: 70%;
+    right: 10px; /* Ajuste cette valeur pour placer le bouton à droite de la carte */
+    padding: 10px 20px;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 1000; /* Assure-toi que le bouton est au-dessus de la carte */
+    display: none; /* Initialement caché */
+}
