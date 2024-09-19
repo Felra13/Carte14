@@ -71,19 +71,20 @@ document.getElementById('startButton').addEventListener('click', function() {
 // Ajouter un événement de clic pour le bouton "Passe"
 document.getElementById('passButton').addEventListener('click', function() {
     if (!feedbackShown) {
-        // Rendre le polygone de la rue demandée visible
+        // Rendre le polygone de la rue demandée visible temporairement
         if (rueDemandee === "Rue Edgar Quinet") {
-            polygonEdgarQuinet.setStyle({ opacity: 1, fillOpacity: 0.5 });
+            showPolygonTemporarily(polygonEdgarQuinet); // Afficher temporairement le polygone
         } else if (rueDemandee === "Boulevard Raspail") {
-            polygonRaspail.setStyle({ opacity: 1, fillOpacity: 0.5 });
+            showPolygonTemporarily(polygonRaspail); // Afficher temporairement le polygone
         } else if (rueDemandee === "Boulevard Arago") {
-            polygonArago.setStyle({ opacity: 1, fillOpacity: 0.5 });
+            showPolygonTemporarily(polygonArago); // Afficher temporairement le polygone
         }
-        
+
         showFeedback("Essaie encore", 'red');
         setTimeout(nextQuestion, 2000);
     }
 });
+
 
 // Ajouter un événement de clic pour le bouton "Restart"
 document.getElementById('restartButton').addEventListener('click', function() {
