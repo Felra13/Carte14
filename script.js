@@ -192,6 +192,7 @@ function nextQuestion() {
     
     if (rueDemandee === "Rue Edgar Quinet") {
         rueDemandee = "Boulevard Raspail";
+        console.log("Next question: Boulevard Raspail");
         questionDiv.textContent = "Place le " + rueDemandee;
         questionDiv.style.display = 'block';
         
@@ -200,6 +201,7 @@ function nextQuestion() {
 
     } else if (rueDemandee === "Boulevard Raspail") {
         rueDemandee = "Boulevard Arago";
+        console.log("Next question: Boulevard Arago"); 
         questionDiv.textContent = "Place le " + rueDemandee;
         questionDiv.style.display = 'block';
 
