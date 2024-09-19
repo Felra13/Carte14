@@ -63,7 +63,36 @@ document.getElementById('startButton').addEventListener('click', function() {
     questionDiv.textContent = "Place la " + rueDemandee;
     questionDiv.style.display = 'block'; // Rendre la question visible
     document.getElementById('startButton').style.display = 'none';
+    document.getElementById('restartButton').style.display = 'none'; // Assurer que le bouton restart est caché au début
     feedbackShown = false;
+});
+
+// Ajouter un événement de clic pour le bouton "Restart"
+document.getElementById('restartButton').addEventListener('click', function() {
+    // Réinitialiser les variables du jeu
+    rueDemandee = "";
+    feedbackShown = false;
+    raspailTrouve = false;
+    aragoTrouve = false;
+    currentRueIndex = 0;
+
+    // Réinitialiser les styles des polygones
+    polygonEdgarQuinet.setStyle({ opacity: 0, fillOpacity: 0 });
+    polygonRaspail.setStyle({ opacity: 0, fillOpacity: 0 });
+    polygonArago.setStyle({ opacity: 0, fillOpacity: 0 });
+
+    // Mélanger les rues et choisir une nouvelle question
+    shuffleArray(rues);
+    rueDemandee = rues[currentRueIndex];
+
+    // Afficher la question
+    var questionDiv = document.getElementById('question');
+    questionDiv.textContent = "Place la " + rueDemandee;
+    questionDiv.style.display = 'block';
+
+    // Afficher le bouton de démarrage et cacher le bouton Restart
+    document.getElementById('startButton').style.display = 'none';
+    document.getElementById('restartButton').style.display = 'none';
 });
 
 // Fonction pour afficher un message de feedback
@@ -149,5 +178,8 @@ function nextQuestion() {
     } else {
         questionDiv.textContent = "Félicitations ! Tu as trouvé toutes les rues.";
         feedbackShown = false;
+
+        // Afficher le bouton Restart
+        document.getElementById('restartButton').style.display = 'block';
     }
 }
