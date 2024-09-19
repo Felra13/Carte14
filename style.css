@@ -77,3 +77,20 @@ html, body {
     background-color: darkorange; /* Couleur de fond au survol */
 }
 
+/* Styles pour le bouton Passe */
+#passButton {
+    position: absolute;
+    bottom: 10px; /* Positionné à 10 pixels du bas */
+    right: 10px; /* Positionné à 10 pixels du bord droit */
+    padding: 10px 20px;
+    background-color: red; /* Fond rouge */
+    color: white; /* Texte en blanc */
+    border: none; /* Pas de bordure */
+    cursor: pointer; /* Changer le curseur pour indiquer que c'est cliquable */
+    z-index: 1000; /* Assure-toi que le bouton est au-dessus de la carte */
+    display: none; /* Initialement caché */
+}
+
+#passButton:hover {
+    background-color: darkred; /* Couleur de fond au survol */
+}
