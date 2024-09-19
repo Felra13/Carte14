@@ -32,7 +32,7 @@ var polygonEdgarQuinet = L.polygon(coordsEdgarQuinet, {
 }).addTo(map);
 
 // Initialement cacher le polygone Edgar Quinet
-polygonEdgarQuinet.setStyle({ opacity: 0, fillOpacity: 0 });
+//polygonEdgarQuinet.setStyle({ opacity: 0, fillOpacity: 0 });
 
 // Coordonnées du Boulevard Raspail (avec inversion des x/y et transformation)
 var coordsRaspail = [
