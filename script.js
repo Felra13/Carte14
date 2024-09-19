@@ -125,7 +125,6 @@ function showFeedback(message, bgColor) {
     }, 2000);
 }
 
-// Ajouter des événements de clic pour chaque polygone
 polygonEdgarQuinet.on('click', function() {
     if (rueDemandee === "Rue Edgar Quinet") {
         if (!feedbackShown) {
@@ -135,10 +134,8 @@ polygonEdgarQuinet.on('click', function() {
             setTimeout(nextQuestion, 2000);
         }
     } else {
-        if (!feedbackShown) {
-            showFeedback("Essaie encore", 'red');
-            feedbackShown = true;
-        }
+        showFeedback("Essaie encore", 'red'); // Toujours permettre le feedback d'erreur
+        feedbackShown = false; // Réinitialiser feedbackShown pour permettre de cliquer de nouveau
     }
 });
 
@@ -152,10 +149,8 @@ polygonRaspail.on('click', function() {
             setTimeout(nextQuestion, 2000);
         }
     } else {
-        if (!feedbackShown) {
-            showFeedback("Essaie encore", 'red');
-            feedbackShown = true;
-        }
+        showFeedback("Essaie encore", 'red');
+        feedbackShown = false; // Réinitialiser pour permettre une nouvelle tentative
     }
 });
 
@@ -169,12 +164,11 @@ polygonArago.on('click', function() {
             setTimeout(nextQuestion, 2000);
         }
     } else {
-        if (!feedbackShown) {
-            showFeedback("Essaie encore", 'red');
-            feedbackShown = true;
-        }
+        showFeedback("Essaie encore", 'red');
+        feedbackShown = false; // Réinitialiser pour permettre une nouvelle tentative
     }
 });
+
 
 // Ajouter un événement de clic pour toute la carte
 map.on('click', function() {
