@@ -159,6 +159,11 @@ polygonArago.on('click', function() {
             aragoTrouve = true; // Le Boulevard Arago a été trouvé
             // Rendre visible le polygone Arago une fois trouvé
             polygonArago.setStyle({ opacity: 1, fillOpacity: 0.5 });
+            
+            // Appeler la fonction `nextQuestion` si nécessaire
+            setTimeout(function() {
+                nextQuestion();
+            }, 2000);
         }
     } else {
         if (!feedbackShown) {
@@ -167,6 +172,7 @@ polygonArago.on('click', function() {
         }
     }
 });
+
 
 // Ajouter un événement de clic pour toute la carte (en cas de clic hors des polygones)
 map.on('click', function() {
@@ -177,21 +183,27 @@ map.on('click', function() {
 
 // Fonction pour passer à la prochaine question
 function nextQuestion() {
+    var questionDiv = document.getElementById('question');
+    
     if (rueDemandee === "Rue Edgar Quinet") {
         rueDemandee = "Boulevard Raspail";
-        var questionDiv = document.getElementById('question');
         questionDiv.textContent = "Place le " + rueDemandee;
         questionDiv.style.display = 'block';
         
-        polygonEdgarQuinet.setStyle({ opacity: 1, fillOpacity: 0.5 });
+        // On ne change pas l'opacité de polygonEdgarQuinet ici, car il a déjà été trouvé.
         feedbackShown = false;
+
     } else if (rueDemandee === "Boulevard Raspail") {
         rueDemandee = "Boulevard Arago";
-        var questionDiv = document.getElementById('question');
         questionDiv.textContent = "Place le " + rueDemandee;
         questionDiv.style.display = 'block';
-        
-        polygonRaspail.setStyle({ opacity: 1, fillOpacity: 0.5 });
+
+        // S'assurer que le feedback est réinitialisé pour la nouvelle question
+        feedbackShown = false;
+
+    } else if (rueDemandee === "Boulevard Arago") {
+        // Si le Boulevard Arago est trouvé, on peut éventuellement afficher un message de fin
+        questionDiv.textContent = "Félicitations ! Tu as trouvé toutes les rues.";
         feedbackShown = false;
     }
 }
