@@ -64,7 +64,25 @@ document.getElementById('startButton').addEventListener('click', function() {
     questionDiv.style.display = 'block'; // Rendre la question visible
     document.getElementById('startButton').style.display = 'none';
     document.getElementById('restartButton').style.display = 'none'; // Assurer que le bouton restart est caché au début
+    document.getElementById('passButton').style.display = 'inline'; // Afficher le bouton Passe
     feedbackShown = false;
+});
+
+// Ajouter un événement de clic pour le bouton "Passe"
+document.getElementById('passButton').addEventListener('click', function() {
+    if (!feedbackShown) {
+        // Rendre le polygone de la rue demandée visible
+        if (rueDemandee === "Rue Edgar Quinet") {
+            polygonEdgarQuinet.setStyle({ opacity: 1, fillOpacity: 0.5 });
+        } else if (rueDemandee === "Boulevard Raspail") {
+            polygonRaspail.setStyle({ opacity: 1, fillOpacity: 0.5 });
+        } else if (rueDemandee === "Boulevard Arago") {
+            polygonArago.setStyle({ opacity: 1, fillOpacity: 0.5 });
+        }
+        
+        showFeedback("Essaie encore", 'red');
+        setTimeout(nextQuestion, 2000);
+    }
 });
 
 // Ajouter un événement de clic pour le bouton "Restart"
@@ -93,6 +111,7 @@ document.getElementById('restartButton').addEventListener('click', function() {
     // Afficher le bouton de démarrage et cacher le bouton Restart
     document.getElementById('startButton').style.display = 'none';
     document.getElementById('restartButton').style.display = 'none';
+    document.getElementById('passButton').style.display = 'inline'; // Afficher le bouton Passe
 });
 
 // Fonction pour afficher un message de feedback
@@ -181,5 +200,6 @@ function nextQuestion() {
 
         // Afficher le bouton Restart
         document.getElementById('restartButton').style.display = 'block';
+        document.getElementById('passButton').style.display = 'none'; // Cacher le bouton Passe
     }
 }
