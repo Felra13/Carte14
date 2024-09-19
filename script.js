@@ -130,7 +130,7 @@ function showPolygonTemporarily(polygon) {
     polygon.setStyle({ opacity: 1, fillOpacity: 0.5 });
     setTimeout(function() {
         polygon.setStyle({ opacity: 0, fillOpacity: 0 });
-    }, 3000); // Après 3 secondes, cacher le polygone
+    }, 2000); // Après 3 secondes, cacher le polygone
 }
 
 // Ajouter des événements de clic pour chaque polygone
