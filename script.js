@@ -16,85 +16,54 @@ L.imageOverlay(imageUrl, imageBounds).addTo(map);
 // Ajuster la vue pour correspondre à l'image
 map.fitBounds(imageBounds);
 
-// Coordonnées du polygone représentant la Rue Edgar Quinet
+// Coordonnées des polygones
 var coordsEdgarQuinet = [
-    [554, 503],  // Coordonnée 1
-    [549, 499],  // Coordonnée 2
-    [509, 577],  // Coordonnée 4
-    [515, 581]   // Coordonnée 3
+    [554, 503], [549, 499], [509, 577], [515, 581]
 ];
-
-// Créer un polygone pour la Rue Edgar Quinet
-var polygonEdgarQuinet = L.polygon(coordsEdgarQuinet, {
-    color: 'red', // Couleur des bordures
-    fillColor: '#f03', // Couleur de remplissage
-    fillOpacity: 0.5   // Opacité du remplissage
-}).addTo(map);
-
-// Initialement cacher le polygone Edgar Quinet
-polygonEdgarQuinet.setStyle({ opacity: 0, fillOpacity: 0 });
-
-// Coordonnées du Boulevard Raspail (avec inversion des x/y et transformation)
 var coordsRaspail = [
-    [567, 568],
-    [416, 605],
-    [409, 613],
-    [565, 575]
+    [567, 568], [416, 605], [409, 613], [565, 575]
 ];
-
-// Créer un polygone pour le Boulevard Raspail
-var polygonRaspail = L.polygon(coordsRaspail, {
-    color: 'blue', // Couleur des bordures
-    fillColor: 'blue', // Couleur de remplissage
-    fillOpacity: 0.5   // Opacité du remplissage
-}).addTo(map);
-
-// Initialement cacher le polygone Raspail
-polygonRaspail.setStyle({ opacity: 0, fillOpacity: 0 });
-
 var coordsArago = [
-    [413, 747],
-    [407, 747],
-    [401, 626],
-    [404, 619]
+    [413, 747], [407, 747], [401, 626], [404, 619]
 ];
 
-// Créer un polygone pour le Boulevard Arago
-var polygonArago = L.polygon(coordsArago, {
-    color: 'green', // Couleur des bordures (choisis une autre couleur pour le différencier)
-    fillColor: 'green', // Couleur de remplissage
-    fillOpacity: 0.5   // Opacité du remplissage
-}).addTo(map);
+// Créer des polygones pour chaque rue
+var polygonEdgarQuinet = L.polygon(coordsEdgarQuinet, { color: 'red', fillColor: '#f03', fillOpacity: 0.5 }).addTo(map);
+var polygonRaspail = L.polygon(coordsRaspail, { color: 'blue', fillColor: 'blue', fillOpacity: 0.5 }).addTo(map);
+var polygonArago = L.polygon(coordsArago, { color: 'green', fillColor: 'green', fillOpacity: 0.5 }).addTo(map);
 
-// Initialement cacher le polygone Arago
+// Initialement cacher les polygones
+polygonEdgarQuinet.setStyle({ opacity: 0, fillOpacity: 0 });
+polygonRaspail.setStyle({ opacity: 0, fillOpacity: 0 });
 polygonArago.setStyle({ opacity: 0, fillOpacity: 0 });
 
-
-
-// Déclarer la variable globale `rueDemandee` et `feedbackShown`
+// Déclarer les variables globales
 var rueDemandee = "";
 var feedbackShown = false;
-var raspailTrouve = false; 
-var aragoTrouve = false; // Indicateur pour savoir si Boulevard Arago est trouvé
+var raspailTrouve = false;
+var aragoTrouve = false;
+var currentRueIndex = 0;
 
+// Fonction pour mélanger un tableau
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+// Initialiser et mélanger la liste des rues
+var rues = ["Rue Edgar Quinet", "Boulevard Raspail", "Boulevard Arago"];
+shuffleArray(rues);
 
 // Ajouter un événement de clic pour le bouton de démarrage
 document.getElementById('startButton').addEventListener('click', function() {
-    // Définir la rue demandée
-    rueDemandee = "Rue Edgar Quinet";
-
-    // Afficher la question lorsque le bouton est cliqué
+    rueDemandee = rues[currentRueIndex];
     var questionDiv = document.getElementById('question');
     questionDiv.textContent = "Place la " + rueDemandee;
     questionDiv.style.display = 'block'; // Rendre la question visible
-
-    // Cacher le bouton de démarrage
     document.getElementById('startButton').style.display = 'none';
-
-    // Réinitialiser le drapeau de feedbackShown
     feedbackShown = false;
-
-
 });
 
 // Fonction pour afficher un message de feedback
@@ -103,83 +72,63 @@ function showFeedback(message, bgColor) {
     feedback.textContent = message;
     feedback.style.backgroundColor = bgColor;
     feedback.style.display = 'block';
-
-    // Cacher le message après 2 secondes
     setTimeout(function() {
         feedback.style.display = 'none';
-    }, 2000); // 2000 millisecondes = 2 secondes
+    }, 2000);
 }
 
-// Ajouter un événement de clic au polygone de la Rue Edgar Quinet
+// Ajouter des événements de clic pour chaque polygone
 polygonEdgarQuinet.on('click', function() {
     if (rueDemandee === "Rue Edgar Quinet") {
         if (!feedbackShown) {
             showFeedback("Correct", 'green');
-            feedbackShown = true; // Mettre à jour le drapeau pour éviter le message d'échec
-            // Rendre visible le polygone Edgar Quinet une fois trouvé
+            feedbackShown = true;
             polygonEdgarQuinet.setStyle({ opacity: 1, fillOpacity: 0.5 });
-            
-            // Ajouter un délai avant de passer à la question suivante
-            setTimeout(function() {
-                nextQuestion(); // Passer à la question suivante après 2 secondes
-            }, 2000);
+            setTimeout(nextQuestion, 2000);
         }
     } else {
         if (!feedbackShown) {
             showFeedback("Essaie encore", 'red');
-            feedbackShown = true; // Mettre à jour le drapeau pour éviter le message d'échec
+            feedbackShown = true;
         }
     }
 });
 
-// Ajouter un événement de clic au polygone du Boulevard Raspail
 polygonRaspail.on('click', function() {
     if (rueDemandee === "Boulevard Raspail" && !raspailTrouve) {
         if (!feedbackShown) {
             showFeedback("Correct", 'green');
-            feedbackShown = true; // Mettre à jour le drapeau pour éviter le message d'échec
-            raspailTrouve = true; // Le Boulevard Raspail a été trouvé
-            // Rendre visible le polygone Raspail une fois trouvé
+            feedbackShown = true;
+            raspailTrouve = true;
             polygonRaspail.setStyle({ opacity: 1, fillOpacity: 0.5 });
-
-            setTimeout(function() {
-                nextQuestion();
-            }, 2000);
+            setTimeout(nextQuestion, 2000);
         }
     } else {
         if (!feedbackShown) {
             showFeedback("Essaie encore", 'red');
-            feedbackShown = true; // Mettre à jour le drapeau pour éviter le message d'échec
+            feedbackShown = true;
         }
     }
 });
 
-
-// Ajouter un événement de clic au polygone du Boulevard Arago
 polygonArago.on('click', function() {
     if (rueDemandee === "Boulevard Arago" && !aragoTrouve) {
         if (!feedbackShown) {
             showFeedback("Correct", 'green');
-            feedbackShown = true; // Mettre à jour le drapeau pour éviter le message d'échec
-            aragoTrouve = true; // Le Boulevard Arago a été trouvé
-            // Rendre visible le polygone Arago une fois trouvé
+            feedbackShown = true;
+            aragoTrouve = true;
             polygonArago.setStyle({ opacity: 1, fillOpacity: 0.5 });
-            
-            // Appeler la fonction `nextQuestion` si nécessaire
-            setTimeout(function() {
-                nextQuestion();
-            }, 2000);
+            setTimeout(nextQuestion, 2000);
         }
     } else {
         if (!feedbackShown) {
             showFeedback("Essaie encore", 'red');
-            feedbackShown = true; // Mettre à jour le drapeau pour éviter le message d'échec
+            feedbackShown = true;
         }
     }
 });
 
-
-// Ajouter un événement de clic pour toute la carte (en cas de clic hors des polygones)
+// Ajouter un événement de clic pour toute la carte
 map.on('click', function() {
     if (!feedbackShown && rueDemandee !== "") {
         showFeedback("Essaie encore", 'red');
@@ -190,26 +139,14 @@ map.on('click', function() {
 function nextQuestion() {
     var questionDiv = document.getElementById('question');
     
-    if (rueDemandee === "Rue Edgar Quinet") {
-        rueDemandee = "Boulevard Raspail";
-        console.log("Next question: Boulevard Raspail");
+    if (currentRueIndex < rues.length - 1) {
+        currentRueIndex++;
+        rueDemandee = rues[currentRueIndex];
+        console.log("Next question: " + rueDemandee);
         questionDiv.textContent = "Place le " + rueDemandee;
         questionDiv.style.display = 'block';
-        
-        // On ne change pas l'opacité de polygonEdgarQuinet ici, car il a déjà été trouvé.
         feedbackShown = false;
-
-    } else if (rueDemandee === "Boulevard Raspail") {
-        rueDemandee = "Boulevard Arago";
-        console.log("Next question: Boulevard Arago"); 
-        questionDiv.textContent = "Place le " + rueDemandee;
-        questionDiv.style.display = 'block';
-
-        // S'assurer que le feedback est réinitialisé pour la nouvelle question
-        feedbackShown = false;
-
-    } else if (rueDemandee === "Boulevard Arago") {
-        // Si le Boulevard Arago est trouvé, on peut éventuellement afficher un message de fin
+    } else {
         questionDiv.textContent = "Félicitations ! Tu as trouvé toutes les rues.";
         feedbackShown = false;
     }
