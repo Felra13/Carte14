@@ -52,10 +52,31 @@ var polygonRaspail = L.polygon(coordsRaspail, {
 // Initialement cacher le polygone Raspail
 polygonRaspail.setStyle({ opacity: 0, fillOpacity: 0 });
 
+var coordsArago = [
+    [413, 747],
+    [407, 747],
+    [401, 626],
+    [404, 619]
+];
+
+// Créer un polygone pour le Boulevard Arago
+var polygonArago = L.polygon(coordsArago, {
+    color: 'green', // Couleur des bordures (choisis une autre couleur pour le différencier)
+    fillColor: 'green', // Couleur de remplissage
+    fillOpacity: 0.5   // Opacité du remplissage
+}).addTo(map);
+
+// Initialement cacher le polygone Arago
+polygonArago.setStyle({ opacity: 0, fillOpacity: 0 });
+
+
+
 // Déclarer la variable globale `rueDemandee` et `feedbackShown`
 var rueDemandee = "";
 var feedbackShown = false;
-var raspailTrouve = false; // Indicateur pour savoir si Boulevard Raspail est trouvé
+var raspailTrouve = false; 
+var aragoTrouve = false; // Indicateur pour savoir si Boulevard Arago est trouvé
+
 
 // Ajouter un événement de clic pour le bouton de démarrage
 document.getElementById('startButton').addEventListener('click', function() {
@@ -73,8 +94,7 @@ document.getElementById('startButton').addEventListener('click', function() {
     // Réinitialiser le drapeau de feedbackShown
     feedbackShown = false;
 
-    // NE PAS rendre visible le polygone Edgar Quinet tout de suite
-    // Il ne deviendra visible qu'une fois trouvé
+
 });
 
 // Fonction pour afficher un message de feedback
@@ -130,6 +150,24 @@ polygonRaspail.on('click', function() {
     }
 });
 
+// Ajouter un événement de clic au polygone du Boulevard Arago
+polygonArago.on('click', function() {
+    if (rueDemandee === "Boulevard Arago" && !aragoTrouve) {
+        if (!feedbackShown) {
+            showFeedback("Correct", 'green');
+            feedbackShown = true; // Mettre à jour le drapeau pour éviter le message d'échec
+            aragoTrouve = true; // Le Boulevard Arago a été trouvé
+            // Rendre visible le polygone Arago une fois trouvé
+            polygonArago.setStyle({ opacity: 1, fillOpacity: 0.5 });
+        }
+    } else {
+        if (!feedbackShown) {
+            showFeedback("Essaie encore", 'red');
+            feedbackShown = true; // Mettre à jour le drapeau pour éviter le message d'échec
+        }
+    }
+});
+
 // Ajouter un événement de clic pour toute la carte (en cas de clic hors des polygones)
 map.on('click', function() {
     if (!feedbackShown && rueDemandee !== "") {
@@ -139,17 +177,21 @@ map.on('click', function() {
 
 // Fonction pour passer à la prochaine question
 function nextQuestion() {
-    // Passer à la question du Boulevard Raspail
     if (rueDemandee === "Rue Edgar Quinet") {
         rueDemandee = "Boulevard Raspail";
         var questionDiv = document.getElementById('question');
         questionDiv.textContent = "Place le " + rueDemandee;
-        questionDiv.style.display = 'block'; // Afficher la nouvelle question
-
-        // Laisser le polygone Edgar Quinet visible mais ne pas afficher Raspail
+        questionDiv.style.display = 'block';
+        
         polygonEdgarQuinet.setStyle({ opacity: 1, fillOpacity: 0.5 });
-
-        // Réinitialiser le drapeau de feedbackShown
+        feedbackShown = false;
+    } else if (rueDemandee === "Boulevard Raspail") {
+        rueDemandee = "Boulevard Arago";
+        var questionDiv = document.getElementById('question');
+        questionDiv.textContent = "Place le " + rueDemandee;
+        questionDiv.style.display = 'block';
+        
+        polygonRaspail.setStyle({ opacity: 1, fillOpacity: 0.5 });
         feedbackShown = false;
     }
 }
