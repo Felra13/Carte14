@@ -80,10 +80,10 @@ document.getElementById('passButton').addEventListener('click', function() {
             showPolygonTemporarily(polygonArago); // Afficher temporairement le polygone
         }
 
-        showFeedback("Essaie encore", 'red');
         setTimeout(nextQuestion, 2000);
     }
 });
+
 
 
 // Ajouter un événement de clic pour le bouton "Restart"
