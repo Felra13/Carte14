@@ -125,17 +125,28 @@ function showFeedback(message, bgColor) {
     }, 2000);
 }
 
+// Fonction pour afficher temporairement un polygone (3 secondes) puis le cacher à nouveau
+function showPolygonTemporarily(polygon) {
+    polygon.setStyle({ opacity: 1, fillOpacity: 0.5 });
+    setTimeout(function() {
+        polygon.setStyle({ opacity: 0, fillOpacity: 0 });
+    }, 3000); // Après 3 secondes, cacher le polygone
+}
+
+// Ajouter des événements de clic pour chaque polygone
 polygonEdgarQuinet.on('click', function() {
     if (rueDemandee === "Rue Edgar Quinet") {
         if (!feedbackShown) {
             showFeedback("Correct", 'green');
             feedbackShown = true;
-            polygonEdgarQuinet.setStyle({ opacity: 1, fillOpacity: 0.5 });
+            showPolygonTemporarily(polygonEdgarQuinet); // Afficher temporairement le polygone
             setTimeout(nextQuestion, 2000);
         }
     } else {
-        showFeedback("Essaie encore", 'red'); // Toujours permettre le feedback d'erreur
-        feedbackShown = false; // Réinitialiser feedbackShown pour permettre de cliquer de nouveau
+        if (!feedbackShown) {
+            showFeedback("Essaie encore", 'red');
+            feedbackShown = false;
+        }
     }
 });
 
@@ -145,12 +156,14 @@ polygonRaspail.on('click', function() {
             showFeedback("Correct", 'green');
             feedbackShown = true;
             raspailTrouve = true;
-            polygonRaspail.setStyle({ opacity: 1, fillOpacity: 0.5 });
+            showPolygonTemporarily(polygonRaspail); // Afficher temporairement le polygone
             setTimeout(nextQuestion, 2000);
         }
     } else {
-        showFeedback("Essaie encore", 'red');
-        feedbackShown = false; // Réinitialiser pour permettre une nouvelle tentative
+        if (!feedbackShown) {
+            showFeedback("Essaie encore", 'red');
+            feedbackShown = false;
+        }
     }
 });
 
@@ -160,12 +173,14 @@ polygonArago.on('click', function() {
             showFeedback("Correct", 'green');
             feedbackShown = true;
             aragoTrouve = true;
-            polygonArago.setStyle({ opacity: 1, fillOpacity: 0.5 });
+            showPolygonTemporarily(polygonArago); // Afficher temporairement le polygone
             setTimeout(nextQuestion, 2000);
         }
     } else {
-        showFeedback("Essaie encore", 'red');
-        feedbackShown = false; // Réinitialiser pour permettre une nouvelle tentative
+        if (!feedbackShown) {
+            showFeedback("Essaie encore", 'red');
+            feedbackShown = false;
+        }
     }
 });
 
