@@ -33,7 +33,7 @@ var coordsObservatoire = [
     [516, 677], [456, 673], [456, 670], [514, 671]
 ];
 var coordsSaintJacques = [
-    [395, 628], [384, 627], [349, 740], [338, 740]
+    [395, 628], [349, 740], [384, 627],  [338, 740]
 ];
 
 // Créer des polygones pour chaque rue
