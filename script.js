@@ -16,51 +16,68 @@ L.imageOverlay(imageUrl, imageBounds).addTo(map);
 // Ajuster la vue pour correspondre à l'image
 map.fitBounds(imageBounds);
 
-// Coordonnées des polygones
-var coordsEdgarQuinet = [
-    [554, 503], [549, 499], [509, 577], [515, 581]
-];
-var coordsRaspail = [
-    [567, 568], [416, 605], [409, 613], [565, 575]
-];
-var coordsArago = [
-    [413, 747], [407, 747], [401, 626], [404, 619]
-];
-var coordsDenfertRochereau = [
-    [497, 677], [403, 618], [408, 614], [496, 671]
-];
-var coordsObservatoire = [
-    [516, 677], [456, 673], [456, 670], [514, 671]
-];
-var coordsSaintJacques = [
-    [395, 628], [384, 627], [338, 740], [349, 740], 
+// Tableau des rues avec noms et coordonnées
+var rues = [
+    { nom: "Rue Edgar Quinet", coords: [[554, 503], [549, 499], [509, 577], [515, 581]] },
+    { nom: "Boulevard Raspail", coords: [[567, 568], [416, 605], [409, 613], [565, 575]] },
+    { nom: "Boulevard Arago", coords: [[413, 747], [407, 747], [401, 626], [404, 619]] },
+    { nom: "Avenue Denfert Rochereau", coords: [[497, 677], [403, 618], [408, 614], [496, 671]] },
+    { nom: "Avenue de l'Observatoire", coords: [[516, 677], [456, 673], [456, 670], [514, 671]] },
+    { nom: "Boulevard Saint Jacques", coords: [[395, 628], [384, 627], [349, 740], [338, 740]] }
 ];
 
-// Créer des polygones pour chaque rue
-var polygonEdgarQuinet = L.polygon(coordsEdgarQuinet, { color: 'green', fillColor: 'green', fillOpacity: 0.5 }).addTo(map);
-var polygonRaspail = L.polygon(coordsRaspail, { color: 'green', fillColor: 'green', fillOpacity: 0.5 }).addTo(map);
-var polygonArago = L.polygon(coordsArago, { color: 'green', fillColor: 'green', fillOpacity: 0.5 }).addTo(map);
-var polygonSaintJacques = L.polygon(coordsSaintJacques, { color: 'green', fillColor: 'green', fillOpacity: 0.5 }).addTo(map);
-var polygonDenfertRochereau = L.polygon(coordsDenfertRochereau, { color: 'green', fillColor: 'green', fillOpacity: 0.5 }).addTo(map);
-var polygonObservatoire = L.polygon(coordsObservatoire, { color: 'green', fillColor: 'green', fillOpacity: 0.5 }).addTo(map);
+// Tableau pour stocker les polygones
+var polygons = [];
+
+// Fonction pour créer et ajouter des polygones à la carte
+function createPolygons() {
+    rues.forEach(rue => {
+        var polygon = L.polygon(rue.coords, { color: 'green', fillColor: 'green', fillOpacity: 0.5 }).addTo(map);
+        polygons.push(polygon);
+        addClickEvent(polygon, rue.nom);
+    });
+}
+
+// Fonction pour ajouter un événement de clic à chaque polygone
+function addClickEvent(polygon, rueNom) {
+    polygon.on('click', function() {
+        if (rueDemandee === rueNom) {
+            if (!feedbackShown) {
+                showFeedback("Correct", 'green');
+                feedbackShown = true;
+                showPolygonTemporarily(polygon); // Afficher temporairement le polygone
+                setTimeout(nextQuestion, 2000);
+            }
+        } else {
+            if (!feedbackShown) {
+                showFeedback("Essaie encore", 'red');
+                feedbackShown = false;
+            }
+        }
+    });
+}
+
+
+// Appel de la fonction pour créer les polygones
+createPolygons();
 
 // Initialement cacher les polygones
-polygonEdgarQuinet.setStyle({ opacity: 0, fillOpacity: 0 });
-polygonRaspail.setStyle({ opacity: 0, fillOpacity: 0 });
-polygonArago.setStyle({ opacity: 0, fillOpacity: 0 });
-polygonSaintJacques.setStyle({ opacity: 0, fillOpacity: 0 }); 
-polygonDenfertRochereau.setStyle({ opacity: 0, fillOpacity: 0 }); 
-polygonObservatoire.setStyle({ opacity: 0, fillOpacity: 0 }); 
+polygons.forEach(polygon => {
+    polygon.setStyle({ opacity: 0, fillOpacity: 0 });
+});
 
 // Déclarer les variables globales
 var rueDemandee = "";
 var feedbackShown = false;
 var raspailTrouve = false;
 var aragoTrouve = false;
-var saintJacquesTrouve = false;
-var denfertRochereauTrouve = false;
-var observatoireTrouve = false;
+var edgarQuinetTrouve = false;
+var boulevardRaspailTrouve = false;
+var avenueDenfertRochereauTrouve = false;
+var avenueObservatoireTrouve = false;
+var boulevardSaintJacquesTrouve = false;
 var currentRueIndex = 0;
+
 
 // Fonction pour mélanger un tableau
 function shuffleArray(array) {
@@ -162,107 +179,6 @@ function showPolygonTemporarily(polygon) {
     }, 2000); // Après 3 secondes, cacher le polygone
 }
 
-// Ajouter des événements de clic pour chaque polygone
-polygonEdgarQuinet.on('click', function() {
-    if (rueDemandee === "Rue Edgar Quinet") {
-        if (!feedbackShown) {
-            showFeedback("Correct", 'green');
-            feedbackShown = true;
-            showPolygonTemporarily(polygonEdgarQuinet); // Afficher temporairement le polygone
-            setTimeout(nextQuestion, 2000);
-        }
-    } else {
-        if (!feedbackShown) {
-            showFeedback("Essaie encore", 'red');
-            feedbackShown = false;
-        }
-    }
-});
-
-polygonRaspail.on('click', function() {
-    if (rueDemandee === "Boulevard Raspail" && !raspailTrouve) {
-        if (!feedbackShown) {
-            showFeedback("Correct", 'green');
-            feedbackShown = true;
-            raspailTrouve = true;
-            showPolygonTemporarily(polygonRaspail); // Afficher temporairement le polygone
-            setTimeout(nextQuestion, 2000);
-        }
-    } else {
-        if (!feedbackShown) {
-            showFeedback("Essaie encore", 'red');
-            feedbackShown = false;
-        }
-    }
-});
-
-polygonArago.on('click', function() {
-    if (rueDemandee === "Boulevard Arago" && !aragoTrouve) {
-        if (!feedbackShown) {
-            showFeedback("Correct", 'green');
-            feedbackShown = true;
-            aragoTrouve = true;
-            showPolygonTemporarily(polygonArago); // Afficher temporairement le polygone
-            setTimeout(nextQuestion, 2000);
-        }
-    } else {
-        if (!feedbackShown) {
-            showFeedback("Essaie encore", 'red');
-            feedbackShown = false;
-        }
-    }
-});
-
-polygonSaintJacques.on('click', function() {
-    if (rueDemandee === "Boulevard Saint-Jacques" && !saintJacquesTrouve) {
-        if (!feedbackShown) {
-            showFeedback("Correct", 'green');
-            feedbackShown = true;
-            saintJacquesTrouve = true;
-            showPolygonTemporarily(polygonSaintJacques); // Afficher temporairement le polygone
-            setTimeout(nextQuestion, 2000);
-        }
-    } else {
-        if (!feedbackShown) {
-            showFeedback("Essaie encore", 'red');
-            feedbackShown = false;
-        }
-    }
-});
-
-polygonDenfertRochereau.on('click', function() {
-    if (rueDemandee === "Avenue Denfert Rochereau" && !denfertRochereauTrouve) {
-        if (!feedbackShown) {
-            showFeedback("Correct", 'green');
-            feedbackShown = true;
-            denfertRochereauTrouve = true;
-            showPolygonTemporarily(polygonDenfertRochereau); // Afficher temporairement le polygone
-            setTimeout(nextQuestion, 2000);
-        }
-    } else {
-        if (!feedbackShown) {
-            showFeedback("Essaie encore", 'red');
-            feedbackShown = false;
-        }
-    }
-});
-
-polygonObservatoire.on('click', function() {
-    if (rueDemandee === "Avenue de l'Observatoire" && !observatoireTrouve) {
-        if (!feedbackShown) {
-            showFeedback("Correct", 'green');
-            feedbackShown = true;
-            observatoireTrouve = true;
-            showPolygonTemporarily(polygonObservatoire); // Afficher temporairement le polygone
-            setTimeout(nextQuestion, 2000);
-        }
-    } else {
-        if (!feedbackShown) {
-            showFeedback("Essaie encore", 'red');
-            feedbackShown = false;
-        }
-    }
-});
 
 // Ajouter un événement de clic pour toute la carte
 map.on('click', function() {
