@@ -26,14 +26,14 @@ var coordsRaspail = [
 var coordsArago = [
     [413, 747], [407, 747], [401, 626], [404, 619]
 ];
-var coordsSaintJacques = [
-    [628, 219], [627, 230], [740, 265], [740, 276]
-];
 var coordsDenfertRochereau = [
-    [677, 117], [618, 211], [614, 206], [671, 118]
+    [497, 677], [403, 618], [408, 614], [496, 671]
 ];
 var coordsObservatoire = [
-    [677, 98], [673, 158], [670, 158], [671, 100]
+    [516, 677], [456, 673], [456, 670], [514, 671]
+];
+var coordsSaintJacques = [
+    [395, 628], [384, 627], [349, 740], [338, 740]
 ];
 
 // Créer des polygones pour chaque rue
