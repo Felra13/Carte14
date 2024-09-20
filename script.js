@@ -60,7 +60,7 @@ shuffleArray(rues);
 document.getElementById('startButton').addEventListener('click', function() {
     rueDemandee = rues[currentRueIndex];
     var questionDiv = document.getElementById('question');
-    questionDiv.textContent = "Place la " + rueDemandee;
+    questionDiv.textContent = rueDemandee;
     questionDiv.style.display = 'block'; // Rendre la question visible
     document.getElementById('startButton').style.display = 'none';
     document.getElementById('restartButton').style.display = 'none'; // Assurer que le bouton restart est caché au début
