@@ -103,24 +103,24 @@ document.getElementById('startButton').addEventListener('click', function() {
     feedbackShown = false;
 });
 
+// Tableau associant chaque nom de rue à son polygone
+var ruePolygones = [
+    { nom: "Rue Edgar Quinet", polygon: polygonEdgarQuinet },
+    { nom: "Boulevard Raspail", polygon: polygonRaspail },
+    { nom: "Boulevard Arago", polygon: polygonArago },
+    { nom: "Boulevard Saint Jacques", polygon: polygonSaintJacques },
+    { nom: "Avenue Denfert Rochereau", polygon: polygonDenfertRochereau },
+    { nom: "Avenue de l'Observatoire", polygon: polygonObservatoire }
+];
+
 // Ajouter un événement de clic pour le bouton "Passe"
 document.getElementById('passButton').addEventListener('click', function() {
     if (!feedbackShown) {
-        // Rendre le polygone de la rue demandée visible temporairement
-        if (rueDemandee === "Rue Edgar Quinet") {
-            showPolygonTemporarily(polygonEdgarQuinet); // Afficher temporairement le polygone
-        } else if (rueDemandee === "Boulevard Raspail") {
-            showPolygonTemporarily(polygonRaspail); // Afficher temporairement le polygone
-        } else if (rueDemandee === "Boulevard Arago") {
-            showPolygonTemporarily(polygonArago); // Afficher temporairement le polygone
-        } else if (rueDemandee === "Boulevard Saint-Jacques") {
-            showPolygonTemporarily(polygonSaintJacques); // Afficher temporairement le polygone
-        } else if (rueDemandee === "Avenue Denfert Rochereau") {
-            showPolygonTemporarily(polygonDenfertRochereau); // Afficher temporairement le polygone
-        } else if (rueDemandee === "Avenue de l'Observatoire") {
-            showPolygonTemporarily(polygonObservatoire); // Afficher temporairement le polygone
+        // Trouver le polygone correspondant à la rue demandée
+        const ruePolygone = ruePolygones.find(rue => rue.nom === rueDemandee);
+        if (ruePolygone) {
+            showPolygonTemporarily(ruePolygone.polygon);
         }
-
         setTimeout(nextQuestion, 2000);
     }
 });
