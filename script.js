@@ -23,7 +23,7 @@ var rues = [
     { nom: "Boulevard Arago", coords: [[413, 747], [407, 747], [401, 626], [404, 619]] },
     { nom: "Avenue Denfert Rochereau", coords: [[497, 677], [403, 618], [408, 614], [496, 671]] },
     { nom: "Avenue de l'Observatoire", coords: [[516, 677], [456, 673], [456, 670], [514, 671]] },
-    { nom: "Boulevard Saint Jacques", coords: [[395, 628], [384, 627], [349, 740], [338, 740]] }
+    { nom: "Boulevard Saint Jacques", coords:   [[395, 628], [384, 627], [338, 740], [349, 740]] }
 ];
 
 // Tableau pour stocker les polygones
