@@ -48,9 +48,9 @@ var polygonObservatoire = L.polygon(coordsObservatoire, { color: 'green', fillCo
 polygonEdgarQuinet.setStyle({ opacity: 0, fillOpacity: 0 });
 polygonRaspail.setStyle({ opacity: 0, fillOpacity: 0 });
 polygonArago.setStyle({ opacity: 0, fillOpacity: 0 });
-//polygonSaintJacques.setStyle({ opacity: 0, fillOpacity: 0 }); 
-//polygonDenfertRochereau.setStyle({ opacity: 0, fillOpacity: 0 }); 
-//polygonObservatoire.setStyle({ opacity: 0, fillOpacity: 0 }); 
+polygonSaintJacques.setStyle({ opacity: 0, fillOpacity: 0 }); 
+polygonDenfertRochereau.setStyle({ opacity: 0, fillOpacity: 0 }); 
+polygonObservatoire.setStyle({ opacity: 0, fillOpacity: 0 }); 
 
 // Déclarer les variables globales
 var rueDemandee = "";
