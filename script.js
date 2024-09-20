@@ -63,7 +63,7 @@ createPolygons();
 
 // Initialement cacher les polygones
 polygons.forEach(polygon => {
-    polygon.setStyle({ opacity: 0, fillOpacity: 0 });
+    polygon.setStyle({ opacity: 1, fillOpacity: 0.5 });
 });
 
 // Déclarer les variables globales
