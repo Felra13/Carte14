@@ -304,10 +304,10 @@ quartierParcDeMontsouris = L.polygon([
 }).addTo(map);
 
 function resetQuartiers() {
-    quartierMontparnasse.setStyle({ color: 'none',  fillColor: 'gray',fillOpacity: 0 });  // Bordure grise par défaut
-    quartierPlaisance.setStyle({ color: 'none', fillColor: 'gray', fillOpacity: 0 });
+    quartierMontparnasse.setStyle({ color: 'none',  fillColor: 'gray',fillOpacity: 0.7 });  // Bordure grise par défaut
+    quartierPlaisance.setStyle({ color: 'none', fillColor: 'gray', fillOpacity: 0.7 });
     quartierPetitMontrouge.setStyle({ color: 'none', fillColor: 'gray', fillOpacity: 0.7});
-    quartierParcDeMontsouris.setStyle({ color: 'none', fillColor: 'gray',fillOpacity: 0 });
+    quartierParcDeMontsouris.setStyle({ color: 'none', fillColor: 'gray',fillOpacity: 0.7 });
 }
 
 resetQuartiers()
@@ -536,7 +536,7 @@ polygonesData.forEach(function(data) {
     polygons.push(polygon); // Ajouter le polygone au tableau
 
     // Initialement cacher le polygone
-    polygon.setStyle({ opacity: 1, fillOpacity: 0.5 });
+    polygon.setStyle({ opacity: 0, fillOpacity: 0 });
 
     // Ajouter l'événement de clic à chaque polygone
     handlePolygonClick(polygon, data.name, data);
