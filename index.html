@@ -5,16 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carte du 14e Arrondissement</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="CSS14e.css">
 </head>
 <body>
-    <button id="startButton">Commencer le jeu</button>
-    <div id="question" style="display: none;"></div>
-    <div id="map"></div>
-    <div id="feedback" style="display: none;"></div>
-    <button id="restartButton">Restart</button>
-    <button id="passButton">Passe</button> 
+    <!-- Bouton de démarrage -->
+    <button id="startButton" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background-color: #0056b3; color: white; padding: 20px 40px; border: none; cursor: pointer; z-index: 1000; font-family: 'Comic Sans MS', cursive; font-size: 24px; opacity : 0 ; ">JOUER</button>
+    <button id="menuButton" style="position: absolute; right: 10px; top: 10%; background-color: black; color: white; padding: 10px 20px; border: none; cursor: pointer; display: none; z-index: 2000;">Menu</button>
+
+    <div id="niveauContainer" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background-color: lightgray; border: 1px solid black; padding: 10px; border-radius: 5px; display: none; z-index: 2000; text-align: center;">
+        <!-- Mode complet -->
+        <h3 style="margin: 0;">Mode de jeu complet</h3>
+        <button id="modeCompletButton" style="background-color: darkblue; color: white; padding: 10px 20px; border: none; cursor: pointer; display: block; margin: 10px auto;">Mode Complet</button>
+
+        <!-- Niveaux pour le mode complet -->
+        <div id="niveauCompletContainer" style="display: none;">
+            <button id="niveauFacileButton" style="background-color: green; color: white; padding: 10px 20px; border: none; cursor: pointer; display: block; margin: 10px auto;">Niveau Facile</button>
+            <button id="niveauIntermediaireButton" style="background-color: darkorange; color: white; padding: 10px 20px; border: none; cursor: pointer; display: block; margin: 10px auto;">Niveau Intermédiaire</button>
+            <button id="niveauDifficileButton" style="background-color: red; color: white; padding: 10px 20px; border: none; cursor: pointer; display: block; margin: 10px auto;">Niveau Difficile</button>
+            <button id="touteCategoriesButton" style="background-color: purple; color: white; padding: 10px 20px; border: none; cursor: pointer; display: block; margin: 10px auto;">Toutes Catégories</button>
+        </div>
+
+        <!-- Mode par quartier -->
+        <h3 style="margin: 10px 0 0 0;">Mode de jeu par quartier</h3>
+        <button id="modeQuartierButton" style="background-color: darkgreen; color: white; padding: 10px 20px; border: none; cursor: pointer; display: block; margin: 10px auto;">Mode par Quartier</button>
+
+        <!-- Choix de quartier -->
+        <div id="quartierContainer" style="display: none;">
+            <button id="quartierMontparnasseButton" style="background-color: lightblue; color: white; padding: 10px 20px; border: none; cursor: pointer; display: block; margin: 10px auto;">Quartier Montparnasse</button>
+            <button id="quartierPlaisanceButton" style="background-color: lightgreen; color: white; padding: 10px 20px; border: none; cursor: pointer; display: block; margin: 10px auto;">Quartier Plaisance</button>
+            <button id="quartierPetitMontrougeButton" style="background-color: lightcoral; color: white; padding: 10px 20px; border: none; cursor: pointer; display: block; margin: 10px auto;">Quartier Petit Montrouge</button>
+            <button id="quartierParcDeMontsourisButton" style="background-color: lightsalmon; color: white; padding: 10px 20px; border: none; cursor: pointer; display: block; margin: 10px auto;">Quartier Parc de Montsouris</button>
+        </div>
+
+        <!-- Niveaux par quartier -->
+        <div id="quartierNiveauContainer" style="display: none;">
+            <button id="quartierNiveauFacileButton" style="background-color: green; color: white; padding: 10px 20px; border: none; cursor: pointer; display: block; margin: 10px auto;">Niveau Facile</button>
+            <button id="quartierNiveauIntermediaireButton" style="background-color: darkorange; color: white; padding: 10px 20px; border: none; cursor: pointer; display: block; margin: 10px auto;">Niveau Intermédiaire</button>
+            <button id="quartierNiveauDifficileButton" style="background-color: red; color: white; padding: 10px 20px; border: none; cursor: pointer; display: block; margin: 10px auto;">Niveau Difficile</button>
+            <button id="quartierToutesCategoriesButton" style="background-color: purple; color: white; padding: 10px 20px; border: none; cursor: pointer; display: block; margin: 10px auto;">Toutes Catégories</button>
+        </div>
+    </div>
+
+    <!-- Zone de question -->
+    <div id="question" style="display: none; z-index: 1000;"></div>
+
+    <!-- Carte Leaflet -->
+    <div id="map" style="height: 100vh; width: 100vw;"></div>
+
+    <!-- Feedback et autres boutons -->
+    <div id="feedback" style="display: none; z-index: 1000;"></div>
+    <button id="restartButton" style="z-index: 1000;">Restart</button>
+    <button id="passButton" style="z-index: 1000;">Passe</button>
+
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="script.js"></script>
+    <script src="JS14e.js"></script>
 </body>
 </html>
