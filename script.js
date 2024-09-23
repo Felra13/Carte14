@@ -310,7 +310,7 @@ function resetQuartiers() {
     quartierParcDeMontsouris.setStyle({ color: 'none', fillColor: 'gray',fillOpacity: 0.7 });
 }
 
-resetQuartiers()
+//resetQuartiers()
 
 function resetQuartiers2() {
     quartierMontparnasse.setStyle({ color: 'none',  fillColor: 'gray',fillOpacity: 0 });  //Transparent
